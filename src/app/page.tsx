@@ -23,7 +23,7 @@ export default function Home() {
   };
 
   const formatDate = (date: Date) => {
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "Sepember", "October", "November", "December"];
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const month = monthNames[date.getMonth()];
     const day = date.getDate();
     return `${month} ${day}`;
