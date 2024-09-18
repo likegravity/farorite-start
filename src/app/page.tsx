@@ -1,101 +1,75 @@
-import Image from "next/image";
+"use client";
+import { useState, useEffect } from "react";
+import searchIcon from './public/search.svg'; // Add this line
+import Image from 'next/image'; // Add this line
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [time, setTime] = useState(new Date());
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = (date: Date) => {
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = hours % 12 || 12;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds} ${ampm}`;
+  };
+
+  const formatDate = (date: Date) => {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "Sepember", "October", "November", "December"];
+    const month = monthNames[date.getMonth()];
+    const day = date.getDate();
+    return `${month} ${day}`;
+  };
+
+  return (
+    <div className="flex flex-col items-center justify-center bg-gradient-to-r from-blue-950 to-black-950 min-h-screen text-white">
+      <h1 className="text-6xl font-bold">{formatDate(time)}</h1>
+      <h1 className="text-6xl font-bold">{formatTime(time)}</h1>
+      <h2 className="text-3xl my-4 font-thin">Hello user,</h2>
+      <div className="flex flex-row">
+        <form action="https://www.google.com/search" method="get" className="mx-4 mt-4 flex items-center space-x-4 bg-gradient-to-r from-red-100 to-yellow-50 px-4 py-2 rounded-full outlin">
+          <input
+            type="text"
+            name="q"
+            placeholder="Google search"
+            className="w-full bg-transparent text-black outline-none"
+          />
+          <button type="submit" className="text-black">            
+          <Image
+              className={"h-8 w-8 brightness-0"}
+              src={searchIcon}
+              width={8}
+              height={8}
+              alt="Search Icon"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+          </button>
+        </form>
+        <form action="https://www.perplexity.ai/search?focus=internet&q=%s" method="get" className="mx-4 mt-4 flex items-center space-x-4 bg-gradient-to-r from-blue-100 to-cyan-50 px-4 py-2 rounded-full outlin">
+          <input
+            type="text"
+            name="q"
+            placeholder="Perplexity search"
+            className="w-full bg-transparent text-black outline-none"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+          <button type="submit" className="text-black">            
           <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+              className={"h-8 w-8 brightness-0"}
+              src={searchIcon}
+              width={8}
+              height={8}
+              alt="Search Icon"
+            />
+          </button>      
+        </form>
+      </div>
     </div>
   );
 }
