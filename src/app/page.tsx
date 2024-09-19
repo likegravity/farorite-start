@@ -38,7 +38,7 @@ export default function Home() {
       <h1 className="text-4xl md:text-6xl font-medium">{formatDate(time)}</h1>
       <h1 className="text-3xl md:text-5xl font-medium">{formatTime(time)}</h1>
       <h2 className="text-xl md:text-3xl my-4 font-thin">Hello user,</h2>
-      <div className="flex flex-col md:flex-row">
+      <div className="flex flex-col md:flex-row mt-20">
         <form action="https://www.google.com/search" method="get" className="mx-4 mt-4 flex items-center space-x-4 bg-gradient-to-r from-red-100 to-yellow-50 px-4 py-2 rounded-full outlin">
           <input
             type="text"
@@ -91,7 +91,7 @@ export default function Home() {
           </button>      
         </form>
       </div>
-      <div className="flex flex-row py-4 w-full justify-center">
+      <div className="flex flex-row py-4 w-full justify-center mt-80">
         <a href="https://vercel.com/likegravitys-projects" className="flex flex-row justify-center items-center text-xl">            
           <Image
             className={"h-16 w-16 brightness-100"}
